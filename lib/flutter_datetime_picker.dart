@@ -260,24 +260,27 @@ class _DatePickerState extends State<_DatePickerComponent> {
   @override
   Widget build(BuildContext context) {
     DatePickerTheme theme = widget.route.theme;
-    return GestureDetector(
-      child: AnimatedBuilder(
-        animation: widget.route.animation,
-        builder: (BuildContext context, Widget child) {
-          final double bottomPadding = MediaQuery.of(context).padding.bottom;
-          return ClipRect(
-            child: CustomSingleChildLayout(
-              delegate: _BottomPickerLayout(widget.route.animation.value, theme,
-                  showTitleActions: widget.route.showTitleActions, bottomPadding: bottomPadding),
-              child: GestureDetector(
-                child: Material(
-                  color: theme.backgroundColor ?? Colors.white,
-                  child: _renderPickerView(theme),
+    return Directionality(
+      textDirection: TextDirection.ltr,
+      child: GestureDetector(
+        child: AnimatedBuilder(
+          animation: widget.route.animation,
+          builder: (BuildContext context, Widget child) {
+            final double bottomPadding = MediaQuery.of(context).padding.bottom;
+            return ClipRect(
+              child: CustomSingleChildLayout(
+                delegate: _BottomPickerLayout(widget.route.animation.value, theme,
+                    showTitleActions: widget.route.showTitleActions, bottomPadding: bottomPadding),
+                child: GestureDetector(
+                  child: Material(
+                    color: theme.backgroundColor ?? Colors.white,
+                    child: _renderPickerView(theme),
+                  ),
                 ),
               ),
-            ),
-          );
-        },
+            );
+          },
+        ),
       ),
     );
   }
